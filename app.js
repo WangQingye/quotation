@@ -5,6 +5,9 @@
 var express = require('express');
 //模版框架
 var swig = require('swig');
+//加载数据库mokuai
+var mongoose = require('mongoose');
+
 
 //创建APP应用
 var app = express();
@@ -19,8 +22,37 @@ app.set('views', './views');
 //注册所使用的模版引擎，第一个参数必须是view engine,第二个是和engine一直的
 app.set('view engine', 'html');
 
-app.get('/', function (req, res, next) {
-    res.send('<h1>欢迎');
-});
+//静态资源目录
+app.use('/public', express.static(__dirname + '/public'));
 
-app.listen(8888);
+//开发过程中取消缓存机制
+swig.setDefaults({cache:false});
+
+// app.get('/', function (req, res, next) {
+//
+//     /**
+//      * @param 读取views目录下的制定文件，解析并返回给客户端
+//      * @param 传递给模版使用数据
+//      */
+//     res.render('index');
+// });
+
+/**
+ * 根据不同的功能划分模块
+ */
+app.use('/', require('./routers/main'));
+app.use('/api', require('./routers/api'));
+app.use('/admin', require('./routers/admin'));
+
+mongoose.connect('mongodb://localhost:27017/blog', function (err) {
+    if(err)
+    {
+        console.log('数据库连接失败');
+    }else
+    {
+        console.log('数据库连接成功');
+        app.listen(8888);
+    }
+});
+//app.listen(8888);
+
