@@ -1,14 +1,155 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>index</title>
-</head>
-<body>
-    <h1>欢迎光临我的博客</h1>
-    <input type="text">
-    <input type="text">
-    <button>登陆1</button>
-    <button>注册1</button>
-</body>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="/public/css/normalize.css" rel="stylesheet">
+    <script src="/public/js/jquery.min.js"></script>
+    <script src="/public/js/index.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <![endif]-->
+    <style type="text/css">
+    	body
+    	{
+    		background-color: #ffffff;
+    	}
+    	#bg
+    	{
+    		width: 100%;
+    		height: 280px;
+    	}
+    	.navbar
+    	{
+    		width: 100%;
+    		height: 50px;
+    	}
+    	.navbar li
+    	{
+    		height: 50px;
+    		margin-left: 50px;
+    		display: inline-block;
+    		text-align: center;
+    		vertical-align: center;
+    	}
+    	.navbar li a
+    	{
+    		line-height: 50px;
+    		color: black;
+    		border-bottom: 2px;
+    		border-color: orange;
+    	}
+    	.navbar li:hover
+    	{
+    		border-bottom: 20px;
+    		border-color: red;
+    	}
+    	.left
+    	{
+    		margin-left: 10%;
+    		width: 50%;
+    		/*background-color: red;*/
+    		height: 800px;
+    		/*display: inline-block;*/
+    		float: left;
+    	}
+    	.right
+    	{
+    		margin-left: 5%;
+    		width: 20%;
+    		/*background-color: blue;*/
+    		height: 800px;
+    		/*display: inline-block;*/
+    		float: left;
+    	}
+    	.mylink
+    	{
+    		margin-top: 20px;
+    	}
+    	.login
+    	{
+    		border-style: solid;
+    		border-color: black;
+    		border-width: 1px;
+    		padding-left: 10px;
+    		box-shadow: 3px 3px 1px #999999;
+			margin-bottom: 10px;
+/*    		display: inline-block;
+    		background-color: green;*/
+    	}
+        #signUp
+        {
+            /*height: 350px;*/
+        }
+	</style>
+  </head>
+  <body>
+  <image id="bg" src="/public/image/bg.jpg"/>
+ 
+    <ul class="navbar">
+	  <li class="active"><a href="#">Home</a></li>
+	  <li><a href="#">Profile</a></li>
+	  <li><a href="#">Messages</a></li>
+	</ul>
+	<div class="left">
+		<p>登陆</p>
+	</div>
+	<div class="right">
+		<div class="login" id="loginBox" style="display: none">
+			<p style="width:50px; margin-left: 10px; border-style:solid; border-color:orange; border-top: 0px; border-right: 0px; border-left: 0px;">登陆</p>
+			<div>
+				<p>用户名：</p>
+				<input type="text" title="id"/>
+			</div>
+			<div>
+				<p>密码：</p>
+				<input type="password" title="password"/>
+			</div>
+			<button style="margin-top: 20px; margin-left: 120px">登陆</button>
+			<p>还没有注册？<a href="#">立即注册</a></p>
+		</div>
+    <div class="login" id="signUp" >
+		<p style="width:50px; margin-left: 10px; border-style:solid; border-color:orange; border-top: 0px; border-right: 0px; border-left: 0px;">注册</p>
+		<div>
+			<p>用户名：</p>
+			<input type="text" title="id" name="userid"/>
+		</div>
+		<div>
+			<p>密码：</p>
+			<input type="password" title="password" name="password"/>
+		</div>
+		<div>
+			<p>确认：</p>
+			<input type="password" title="password" name="repassword"/>
+		</div>
+        <p style="display: none; color: #ffba1c; font-size: 14px" id="singUpMessage" >注册成功了！</p>
+		<button style="margin-left: 120px">注册</button>
+        <p>已有账号？<a href="#">马上登陆</a></p>
+	</div>
+    <div class="login" id="loginSuccess" style="height: 150px; display: none">
+        <p style="width:100px; margin-left: 10px; border-style:solid; border-color:orange; border-top: 0px; border-right: 0px; border-left: 0px;">登陆成功</p>
+        <p>欢迎回来：<span style="color: blue" id="user_name">admin</span></p>
+        <p>您是管理员，可以进入</p><a href="#">后台</a>
+    </div>
+    <div class="login mylink">
+        <p style="width:80px; margin-left: 10px; border-style:solid; border-color:orange; border-top: 0px; border-right: 0px; border-left: 0px;">相关连接</p>
+        <a href="#" style="display: block; margin-top: 10px">在线简历</a>
+        <a href="#" style="display: block; margin-top: 10px; margin-bottom: 10px">github</a>
+    </div>
+    </div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!--     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    Include all compiled plugins (below), or include individual files as needed
+    <script src="js/bootstrap.min.js"></script> -->
+
+  </body>
+
 </html>
