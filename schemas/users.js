@@ -3,7 +3,7 @@
  */
 
 var mongoose = require('mongoose');
-var schema = mongoose.Schema;
+var Schema = mongoose.Schema;
 
 //用户表结构
 var userSchema = new Schema(

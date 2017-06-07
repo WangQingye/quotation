@@ -7,7 +7,8 @@ var express = require('express');
 var swig = require('swig');
 //加载数据库mokuai
 var mongoose = require('mongoose');
-
+//用来出来post提交过来的数据
+var bodyParser = require('body-parser');
 
 //创建APP应用
 var app = express();
@@ -24,6 +25,7 @@ app.set('view engine', 'html');
 
 //静态资源目录
 app.use('/public', express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({extended:true}));
 
 //开发过程中取消缓存机制
 swig.setDefaults({cache:false});
