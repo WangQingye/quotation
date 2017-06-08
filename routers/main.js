@@ -10,5 +10,5 @@ var router = express.Router();
 router.get('/', function (req, res, next) {
     res.render('main/index');
 });
-
+console.log(123);
 module.exports = router;
