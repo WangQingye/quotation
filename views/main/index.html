@@ -88,16 +88,27 @@
   <image id="bg" src="/public/image/bg.jpg"/>
  
     <ul class="navbar">
-	  <li class="active"><a href="#">Home</a></li>
-	  <li><a href="#">Profile</a></li>
-	  <li><a href="#">Messages</a></li>
+	  <li class="active"><a href="">Home</a></li>
+	  <li><a href="">Profile</a></li>
+	  <li><a href="">Messages</a></li>
 	</ul>
 	<div class="left">
 		<p>登陆</p>
 	</div>
 	<div class="right">
-	{% if userinfo._id %}
-	<div class="login" id="loginBox" style="display: none">
+	{% if userInfo.user_id %}
+	<div class="login" id="loginSuccess">
+		<p style="width:100px; margin-left: 10px; border-style:solid; border-color:#ff4007; border-top: 0px; border-right: 0px; border-left: 0px;">登陆成功</p>
+		<p>欢迎回来：<span style="color: blue" name="username">{{userInfo.username}}</span></p>
+		{% if userInfo.isAdmin %}
+		<div name="admin">
+			<p>您是管理员，可以进入:<a href="">后台</a></p>
+		</div>
+		{% endif %}
+		<a href="">退出</a>
+	</div>
+	{% else %}
+	<div class="login" id="loginBox" >
 			<p style="width:50px; margin-left: 10px; border-style:solid; border-color:orange; border-top: 0px; border-right: 0px; border-left: 0px;">登陆</p>
 			<div>
 				<p>用户名：</p>
@@ -109,9 +120,9 @@
 			</div>
 			<button style="margin-top: 20px; margin-left: 120px">登陆</button>
 			<p style="display: none; color: #ffba1c; font-size: 14px" name="singUpMessage" >注册成功了！</p>
-			<p>还没有注册？<a href="#">立即注册</a></p>
+			<p>还没有注册？<a href="">立即注册</a></p>
 		</div>
-    <div class="login" id="signUp" >
+    <div class="login" id="signUp" style="display: none" >
 		<p style="width:50px; margin-left: 10px; border-style:solid; border-color:orange; border-top: 0px; border-right: 0px; border-left: 0px;">注册</p>
 		<div>
 			<p>用户名：</p>
@@ -127,20 +138,13 @@
 		</div>
         <p style="display: none; color: #ffba1c; font-size: 14px" name="singUpMessage" >注册成功了！</p>
 		<button style="margin-left: 120px; margin-top: 15px">注册</button>
-        <p>已有账号？<a href="#">马上登陆</a></p>
+        <p>已有账号？<a href="">马上登陆</a></p>
 	</div>
-    <div class="login" id="loginSuccess" style="display: none">
-        <p style="width:100px; margin-left: 10px; border-style:solid; border-color:#ff4007; border-top: 0px; border-right: 0px; border-left: 0px;">登陆成功</p>
-        <p>欢迎回来：<span style="color: blue" name="username">admin</span></p>
-        <div name="admin" style="display: none">
-			<p>您是管理员，可以进入</p><a href="#">后台</a>
-		</div>
-		<a href="#">退出</a>
-    </div>
+	{% endif %}
     <div class="login mylink">
         <p style="width:80px; margin-left: 10px; border-style:solid; border-color:orange; border-top: 0px; border-right: 0px; border-left: 0px;">相关连接</p>
-        <a href="#" style="display: block; margin-top: 10px">在线简历</a>
-        <a href="#" style="display: block; margin-top: 10px; margin-bottom: 10px">github</a>
+        <a href="" style="display: block; margin-top: 10px">在线简历</a>
+        <a href="" style="display: block; margin-top: 10px; margin-bottom: 10px">github</a>
     </div>
     </div>
 
