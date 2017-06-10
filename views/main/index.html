@@ -80,13 +80,8 @@
     		padding-left: 10px;
     		box-shadow: 3px 3px 1px #999999;
 			margin-bottom: 10px;
-/*    		display: inline-block;
-    		background-color: green;*/
+			padding-bottom: 10px;
     	}
-        #signUp
-        {
-            /*height: 350px;*/
-        }
 	</style>
   </head>
   <body>
@@ -101,17 +96,19 @@
 		<p>登陆</p>
 	</div>
 	<div class="right">
-		<div class="login" id="loginBox" style="display: none">
+	{% if userinfo._id %}
+	<div class="login" id="loginBox" style="display: none">
 			<p style="width:50px; margin-left: 10px; border-style:solid; border-color:orange; border-top: 0px; border-right: 0px; border-left: 0px;">登陆</p>
 			<div>
 				<p>用户名：</p>
-				<input type="text" title="id"/>
+				<input type="text" title="id" name="userid"/>
 			</div>
 			<div>
 				<p>密码：</p>
-				<input type="password" title="password"/>
+				<input type="password" title="password" name="password"/>
 			</div>
 			<button style="margin-top: 20px; margin-left: 120px">登陆</button>
+			<p style="display: none; color: #ffba1c; font-size: 14px" name="singUpMessage" >注册成功了！</p>
 			<p>还没有注册？<a href="#">立即注册</a></p>
 		</div>
     <div class="login" id="signUp" >
@@ -128,14 +125,17 @@
 			<p>确认：</p>
 			<input type="password" title="password" name="repassword"/>
 		</div>
-        <p style="display: none; color: #ffba1c; font-size: 14px" id="singUpMessage" >注册成功了！</p>
-		<button style="margin-left: 120px">注册</button>
+        <p style="display: none; color: #ffba1c; font-size: 14px" name="singUpMessage" >注册成功了！</p>
+		<button style="margin-left: 120px; margin-top: 15px">注册</button>
         <p>已有账号？<a href="#">马上登陆</a></p>
 	</div>
-    <div class="login" id="loginSuccess" style="height: 150px; display: none">
-        <p style="width:100px; margin-left: 10px; border-style:solid; border-color:orange; border-top: 0px; border-right: 0px; border-left: 0px;">登陆成功</p>
-        <p>欢迎回来：<span style="color: blue" id="user_name">admin</span></p>
-        <p>您是管理员，可以进入</p><a href="#">后台</a>
+    <div class="login" id="loginSuccess" style="display: none">
+        <p style="width:100px; margin-left: 10px; border-style:solid; border-color:#ff4007; border-top: 0px; border-right: 0px; border-left: 0px;">登陆成功</p>
+        <p>欢迎回来：<span style="color: blue" name="username">admin</span></p>
+        <div name="admin" style="display: none">
+			<p>您是管理员，可以进入</p><a href="#">后台</a>
+		</div>
+		<a href="#">退出</a>
     </div>
     <div class="login mylink">
         <p style="width:80px; margin-left: 10px; border-style:solid; border-color:orange; border-top: 0px; border-right: 0px; border-left: 0px;">相关连接</p>
