@@ -9,6 +9,10 @@ var swig = require('swig');
 var mongoose = require('mongoose');
 //用来出来post提交过来的数据
 var bodyParser = require('body-parser');
+//解析cookies
+var Cookies = require('cookies');
+//用户模型
+var User = require('./models/user');
 
 //创建APP应用
 var app = express();
@@ -25,10 +29,39 @@ app.set('view engine', 'html');
 
 //静态资源目录
 app.use('/public', express.static(__dirname + '/public'));
+//解析请求数据
 app.use(bodyParser.urlencoded({extended:true}));
+//设置cookie
+app.use(function (req, res, next) {
+    req.cookies = new Cookies(req, res);
+
+    //解析登陆用户的cookie信息
+    if(req.cookies.get('userInfo'))
+    {
+        try
+        {
+            req.userInfo = JSON.parse(req.cookies.get('userInfo'));
+
+            //获取当前登陆用户的类型（是否是管理员）
+            User.findById(req.userInfo.user_id)
+                .then(function (userInfo) {
+                    req.userInfo.isAdmin = Boolean(userInfo.isAdmin);
+                    next();
+                })
+        }catch (e){
+            next();
+        }
+    }else {
+        next();
+    }
+
+});
+
 
 //开发过程中取消缓存机制
 swig.setDefaults({cache:false});
+
+
 
 // app.get('/', function (req, res, next) {
 //
