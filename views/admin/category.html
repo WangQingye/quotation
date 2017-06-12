@@ -22,12 +22,12 @@
         <tr>
             <td>{{category._id.toString()}}</td>
             <td>{{category.name}}</td>
-            <td><a href="">删除</a></td>
+            <td><a href="/admin/category/edit?id={{category._id.toString()}}">修改</a><span>&nbsp&nbsp</span><a href="/admin/category/delete?id={{category._id.toString()}}">删除</a></td>
         </tr>
         {% endfor %}
     </table>
 </div>
-<!--&lt;!&ndash;引入翻页&ndash;&gt;-->
-<!--{% include 'page.html' %}-->
+<!--引入翻页-->
+{% include 'page.html' %}
 
 {% endblock %}

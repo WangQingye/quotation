@@ -1,9 +1,9 @@
 {% block page %}
 <nav aria-label="...">
     <ul class="pager">
-        <li class="previous"><a href="/admin/user?page={{page-1}}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+        <li class="previous"><a href="/admin/{{type}}?page={{page-1}}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
         <li class="center">第{{page}}页/共{{totalPage}}页</li>
-        <li class="next"><a href="/admin/user?page={{page+1}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+        <li class="next"><a href="/admin/{{type}}?page={{page+1}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
     </ul>
 </nav>
 {% endblock %}

@@ -86,7 +86,7 @@ $(function () {
         )
     });
     //点击退出
-    $loginSuccess.find('a').on('click', function () {
+    $('#logout').on('click', function () {
         $.ajax(
             {
                 //默认type:'get',
