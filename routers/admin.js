@@ -99,10 +99,6 @@ router.get('/category', function (req, res) {
                 });
         });
 });
-
-/**
- * 分类添加
- * */
 //获取添加页面
 router.get('/category/add', function (req, res) {
     res.render('admin/category_add', {
@@ -156,7 +152,6 @@ router.post('/category/add', function (req, res) {
     });
 
 });
-
 //分类修改
 router.get('/category/edit', function (req, res) {
 
@@ -242,13 +237,12 @@ router.post('/category/edit', function (req, res) {
        });
     });
 });
-
 //分类删除
 router.get('/category/delete', function (req, res) {
-   
+
     //获取要删除的ID
     var id = req.query.id;
-    
+
     Category.remove({
         _id:id
     }).then(function () {
@@ -259,4 +253,24 @@ router.get('/category/delete', function (req, res) {
         });
     })
 });
+
+/**
+ * 内容管理
+ * */
+router.get('/content', function (req, res) {
+   res.render('admin/content', {
+       userInfo:req.userInfo
+   })
+});
+
+router.get('/content/add', function (req, res) {
+    Category.find().then(function (categories) {
+        res.render('admin/content_add', {
+            userInfo:req.userInfo,
+            categories:categories
+        })
+    });
+});
+
+
 module.exports = router;
