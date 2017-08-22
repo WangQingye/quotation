@@ -9,6 +9,8 @@ var router = express.Router();
 var User = require('../models/user');
 //引入分类模型
 var Category = require('../models/category');
+//引入内容模型
+var Content = require('../models/content');
 
 // /admin/user
 router.use(function (req, res, next) {
@@ -258,18 +260,77 @@ router.get('/category/delete', function (req, res) {
  * 内容管理
  * */
 router.get('/content', function (req, res) {
-   res.render('admin/content', {
-       userInfo:req.userInfo
-   })
+    var page =  Number(req.query.page || 1); //请求页数
+    var limit = 10; //每页的限制
+    var skip = 0; //根据页数计算需要跳过的条数，动态计算
+    var totalPage = 0;
+    Content.count()
+        .then(function (count) {
+            totalPage = Math.ceil(count / limit);
+            //设置page的范围
+            page = Math.min(page, totalPage);
+            page = Math.max(page, 1);
+
+            skip = (page - 1) * limit;
+
+            Content.find().sort({_id: -1}).skip(skip).limit(limit).populate('category')
+                .then(function (contents) {
+                    res.render('admin/content', {
+                        userInfo: req.userInfo,
+                        contents: contents,
+                        page: page,
+                        totalPage: totalPage,
+                        type: 'contents'
+                    })
+                });
+        });
 });
 
+// 内容添加
 router.get('/content/add', function (req, res) {
-    Category.find().then(function (categories) {
+    Category.find().sort({_id: -1}).then(function (categories) {
         res.render('admin/content_add', {
-            userInfo:req.userInfo,
-            categories:categories
-        })
+            userInfo: req.userInfo,
+            categories: categories
+        });
+        console.log(categories)
     });
+});
+
+//内容保存
+router.post('/content/add', function(req, res){
+   console.log(req.body);
+   if (req.body.category === '')
+   {
+       res.render('admin/error', {
+           userInfo: req.userInfo,
+           message: '内容不能为空'
+       });
+       return;
+   }
+   if (req.body.title === '')
+   {
+       res.render('admin/error', {
+           userInfo: req.userInfo,
+           message: '标题不能为空'
+       });
+       return;
+   }
+
+   // 通过验证，保存数据到数据库
+    new Content({
+        category: req.body.category,
+        title: req.body.title,
+        description: req.body.description,
+        content: req.body.content
+    }).save().then(function(rs){
+        res.render('admin/success', {
+            userInfo: req.userInfo,
+            message: '内容保存成功',
+            url: '/admin/content'
+        });
+    });
+
 });
 
 console.log(13);
