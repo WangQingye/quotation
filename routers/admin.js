@@ -259,6 +259,7 @@ router.get('/category/delete', function (req, res) {
 /**
  * 内容管理
  * */
+// 内容读取
 router.get('/content', function (req, res) {
     var page =  Number(req.query.page || 1); //请求页数
     var limit = 10; //每页的限制
@@ -297,7 +298,7 @@ router.get('/content/add', function (req, res) {
     });
 });
 
-//内容保存
+// 内容保存
 router.post('/content/add', function(req, res){
    console.log(req.body);
    if (req.body.category === '')
@@ -333,6 +334,33 @@ router.post('/content/add', function(req, res){
 
 });
 
+// 内容修改
+router.get('/content/edit', function (req, res) {
+
+    //获取要修改的文章ID
+    var id = req.query.id;
+    Category.find().sort({_id: -1}).then(function (categories) {
+        Content.findOne({
+            _id: id
+        }).populate('category').then(function (content) {
+            console.log(content)
+            if (!content) {
+                res.render('admin/error', {
+                    userInfo: req.userInfo,
+                    message: '指定内容不存在'
+                })
+                return Promise.reject();
+            } else {
+                res.render('admin/content_edit', {
+                    userInfo: req.userInfo,
+                    categories: categories,
+                    content: content
+                })
+            }
+        })
+    });
+
+});
 console.log(13);
 
 module.exports = router;
