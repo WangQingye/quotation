@@ -343,7 +343,6 @@ router.get('/content/edit', function (req, res) {
         Content.findOne({
             _id: id
         }).populate('category').then(function (content) {
-            console.log(content)
             if (!content) {
                 res.render('admin/error', {
                     userInfo: req.userInfo,
@@ -359,8 +358,63 @@ router.get('/content/edit', function (req, res) {
             }
         })
     });
+});
+
+// 保存修改
+router.post('/content/edit', function(req, res){
+
+    var id = req.query.id;
+
+    if (req.body.category === '')
+    {
+        res.render('admin/error', {
+            userInfo: req.userInfo,
+            message: '内容不能为空'
+        });
+        return;
+    }
+    if (req.body.title === '')
+    {
+        res.render('admin/error', {
+            userInfo: req.userInfo,
+            message: '标题不能为空'
+        });
+        return;
+    }
+
+    // 通过验证，保存数据到数据库
+    Content.update({
+        _id: id
+    }, {
+        category: req.body.category,
+        title: req.body.title,
+        description: req.body.description,
+        content: req.body.content
+    }).then(function () {
+        res.render('admin/success', {
+            userInfo: req.userInfo,
+            message: '内容保存成功',
+            url: '/admin/content'
+        })
+    })
 
 });
-console.log(13);
+
+// 内容删除
+router.get('/content/delete', function (req, res) {
+
+    //获取要删除的ID
+    var id = req.query.id;
+
+    Content.remove({
+        _id:id
+    }).then(function () {
+        res.render('admin/success', {
+            userInfo:req.userInfo,
+            message:'删除成功',
+            url:'/admin/content'
+        });
+    })
+});
 
 module.exports = router;
