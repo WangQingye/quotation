@@ -2,8 +2,13 @@
 
 {% block main %}
 <div class="jumbotron">
-    <h1>你好，伟大的{{userInfo.username}}</h1>
+    <h1>你好，伟大的琳垚商务老板</h1>
     <p>这是你的地盘，现在你可以做主了！</p>
-    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+    <p>今天的<b>成都</b>天气是{{weather[0].now.text}}
+    <img style="margin-bottom:5px" src= {{ 'http://s1.sencdn.com/web/icons/3d_50/'+weather[0].now.code+'.png' }} alt="">
+    </p>
+    <p>温度在{{weather[0].now.temperature}}°左右</p>
+    <p>空气污染程度是<b>{{weather[0].now.air_quality.city.quality}}</b></p>    
+    <!-- <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p> -->
 </div>
 {% endblock %}

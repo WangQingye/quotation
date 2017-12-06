@@ -6,158 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>王清野的博客</title>
-
     <!-- Bootstrap -->
 	<link rel="stylesheet" href="/public/css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="/public/css/bootstrap-theme.min.css" type="text/css">
     <link href="/public/css/normalize.css" rel="stylesheet">
-	<script src="/public/js/bootstrap.min.js"></script>
+    <link href="/public/css/index.css" rel="stylesheet">
+	<!-- <script src="/public/js/bootstrap.min.js"></script> -->
 	<script src="/public/js/jquery.min.js"></script>
     <script src="/public/js/index.js"></script>
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <![endif]-->
-    <style type="text/css">
-    	body
-    	{
-    		background-color: #ffffff;
-    	}
-    	#bg
-    	{
-    		width: 100%;
-    		height: 280px;
-    	}
-    	.left
-    	{
-    		margin-left: 10%;
-    		width: 50%;
-    		/*background-color: red;*/
-    		height: 800px;
-    		/*display: inline-block;*/
-    		float: left;
-    	}
-    	.right
-    	{
-    		margin-left: 5%;
-    		width: 20%;
-    		/*background-color: blue;*/
-    		height: 800px;
-    		/*display: inline-block;*/
-    		float: left;
-    	}
-    	.mylink
-    	{
-    		margin-top: 20px;
-    	}
-    	.login
-    	{
-    		border-style: solid;
-    		border-color: black;
-    		border-width: 1px;
-    		padding-left: 10px;
-    		box-shadow: 3px 3px 1px #999999;
-			margin-bottom: 10px;
-			padding-bottom: 10px;
-    	}
-	</style>
   </head>
   <body>
-  <image id="bg"  class="img-responsive" src="/public/image/bg.jpg"/>
-
-  <!--顶部导航条-->
-  <nav class="navbar navbar-default">
-	  <div class="container-fluid">
-		  <!-- Brand and toggle get grouped for better mobile display -->
-		  <div class="navbar-header">
-			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-				  <span class="sr-only">Toggle navigation</span>
-				  <span class="icon-bar"></span>
-				  <span class="icon-bar"></span>
-				  <span class="icon-bar"></span>
-			  </button>
-			  <span class="navbar-brand" href="/">我的博客</span>
-		  </div>
-
-		  <!-- Collect the nav links, forms, and other content for toggling -->
-		  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			  <ul class="nav navbar-nav">
-				  <li><a href="#">首页<span class="sr-only">(current)</span></a></li>
-
-				  {% for category in categories %}
-				  <li><a href="">{{category.name}}</a></li>
-				  {% endfor %}
-
-				  <!--<li><a href="">技术相关</a></li>-->
-				  <!--<li><a href="">我的心情</a></li>-->
-			  </ul>
-		  </div><!-- /.navbar-collapse -->
-	  </div><!-- /.container-fluid -->
-  </nav>
-
-
-	<div class="left">
-		<p>登陆</p>
+	<img style="width:100%" src="/public/image/banner.png" alt="">
+	<ul class="nav nav-tabs navs">
+		<li role="presentation" class="active"><a href="#">公司简介</a></li>
+		<li role="presentation"><a href="/goods">产品展示</a></li>
+		<li role="presentation"><a href="/clients">客户案例</a></li>
+	</ul>
+	<div class="jumbotron">
+		<p>四川琳垚贸易有限公司位于四川成都金府钢材城。公司成立于2010年，实力强大，资金雄厚，主营: H型钢、角钢、槽钢、工字钢、热镀管、镀锌管等各种钢材。公司秉承“顾客至上，锐意进取”的经营理念，坚持“客户******”的原则为广大客户提供优质的服务。以明确的专业化经营为核心，着力为客户提供高品质、低成本的钢铁材料。公司不断进取并逐步完善，在西南区域乃至国内市场有较大的知名度和较高的诚信度，欢迎广大企业、用户和消费者和我们联系，我们将竭诚为您服务！</p>
 	</div>
-	<div class="right">
-	{% if userInfo.user_id %}
-	<div class="login" id="loginSuccess">
-		<p style="width:100px; margin-left: 10px; border-style:solid; border-color:#ff4007; border-top: 0px; border-right: 0px; border-left: 0px;">登陆成功</p>
-		<p>欢迎回来：<span style="color: blue" name="username">{{userInfo.username}}</span></p>
-		{% if userInfo.isAdmin %}
-		<div name="admin">
-			<p>您是管理员，可以进入:<a href="/admin">后台</a></p>
-		</div>
-		{% endif %}
-		<a id="logout" href="">退出</a>
-	</div>
-	{% else %}
-	<div class="login" id="loginBox" >
-			<p style="width:50px; margin-left: 10px; border-style:solid; border-color:orange; border-top: 0px; border-right: 0px; border-left: 0px;">登陆</p>
-			<div>
-				<p>用户名：</p>
-				<input type="text" title="id" name="userid"/>
-			</div>
-			<div>
-				<p>密码：</p>
-				<input type="password" title="password" name="password"/>
-			</div>
-			<button style="margin-top: 20px; margin-left: 120px">登陆</button>
-			<p style="display: none; color: #ffba1c; font-size: 14px" name="singUpMessage" >注册成功了！</p>
-			<p>还没有注册？<a href="">立即注册</a></p>
-		</div>
-    <div class="login" id="signUp" style="display: none" >
-		<p style="width:50px; margin-left: 10px; border-style:solid; border-color:orange; border-top: 0px; border-right: 0px; border-left: 0px;">注册</p>
-		<div>
-			<p>用户名：</p>
-			<input type="text" title="id" name="userid"/>
-		</div>
-		<div>
-			<p>密码：</p>
-			<input type="password" title="password" name="password"/>
-		</div>
-		<div>
-			<p>确认：</p>
-			<input type="password" title="password" name="repassword"/>
-		</div>
-        <p style="display: none; color: #ffba1c; font-size: 14px" name="singUpMessage" >注册成功了！</p>
-		<button style="margin-left: 120px; margin-top: 15px">注册</button>
-        <p>已有账号？<a href="">马上登陆</a></p>
-	</div>
-	{% endif %}
-    <div class="login mylink">
-        <p style="width:80px; margin-left: 10px; border-style:solid; border-color:orange; border-top: 0px; border-right: 0px; border-left: 0px;">相关连接</p>
-        <a href="" style="display: block; margin-top: 10px">在线简历</a>
-        <a href="" style="display: block; margin-top: 10px; margin-bottom: 10px">github</a>
-    </div>
-    </div>
-
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<!--     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-    Include all compiled plugins (below), or include individual files as needed
-    <script src="js/bootstrap.min.js"></script> -->
-
   </body>
-
 </html>

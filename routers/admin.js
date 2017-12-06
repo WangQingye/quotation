@@ -4,7 +4,7 @@
 
 var express = require('express');
 var router = express.Router();
-
+var axios = require('axios');
 //引入用户数据模型
 var User = require('../models/user');
 //引入分类模型
@@ -13,24 +13,37 @@ var Category = require('../models/category');
 var Content = require('../models/content');
 
 // /admin/user
-router.use(function (req, res, next) {
-    if(!req.userInfo)
-    {
-        res.send('对不起，您还没有登陆');
-    }
-    if(!req.userInfo.isAdmin){
-       res.send('对不起，您不是管理员');
-       return;
-    }
-    next();
-});
+// router.use(function (req, res, next) {
+//     if(!req.userInfo)
+//     {
+//         res.send('对不起，您还没有登陆');
+//     }
+//     if(!req.userInfo.isAdmin){
+//        res.send('对不起，您不是管理员');
+//        return;
+//     }
+//     next();
+// });
 
 /**
  * 首页
  * */
 router.get('/',function (req, res) {
-    res.render('admin/index', {
-        userInfo:req.userInfo
+    // 获取一下今天的天气
+    axios.get('https://weixin.jirengu.com/weather/now?cityid=WM6N2PM3WY2K')
+    .then(function(response)
+    {
+        weather = response.data.weather;
+        console.log(weather)
+        res.render('admin/index', {
+            weather: weather,
+            userInfo:req.userInfo
+        })
+    })
+    .catch(function(err)
+    {
+        console.log(2)
+        console.log(err)
     })
 });
 

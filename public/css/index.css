@@ -1,0 +1,26 @@
+.navs{
+    width: 100%;
+    display: flex;
+}
+.jumbotron{
+    background: white;
+    padding: 2rem 1rem;
+}
+.jumbotron p{
+    font-size: 20px;
+    text-indent: 40px;
+}
+td p,
+td a{
+    font-size: 15px;
+    display: block;
+    padding-top: 4rem;
+    height: 10rem;
+}
+td img{
+    width: 10rem;
+    height: 10rem;
+}
+.description{
+    text-indent: 0;
+}
