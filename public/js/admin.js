@@ -1,33 +1,30 @@
 /**
- * Created by wqy on 2017/6/7.
+ * Created by wqy on 2017/12/6.
  */
 
 $(function () {
+    /* 页面数据 */
+    var imgBase64;
     var $loginBox = $('#loginBox');
     var $signUp = $('#signUp');
     var $loginSuccess = $('#loginSuccess');
     var $goodsNav = $('#goodsNav');
     $goodsNav.find('li').on('click', function () {
-        console.log('312');
         $goodsNav.addClass('active')
     });
     var $goodImg = $('#img');
     var $showImg = $('#showImg');
     $goodImg.on('change',function(){
-        var src = getObjectURL(this.files[0]);
-        $showImg.attr('src', src);
+        // var src = getObjectURL(this.files[0]);
+        // console.log(src);
+        var file = this.files[0];
+        var reader = new FileReader();
+        reader.readAsDataURL(file); // 读出 base64
+        reader.onloadend = function () {      
+            var dataURL = reader.result;
+            $showImg.attr('src', dataURL);
+        };
     })
-    function getObjectURL(file) {
-        var url = null;
-        if (window.createObjectURL != undefined) {
-            url = window.createObjectURL(file)
-        } else if (window.URL != undefined) {
-            url = window.URL.createObjectURL(file)
-        } else if (window.webkitURL != undefined) {
-            url = window.webkitURL.createObjectURL(file)
-        }
-        return url
-    };
     //登陆与注册页面切换
     $loginBox.find('a').on('click', function () {
         console.log('312');
