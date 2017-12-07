@@ -1,32 +1,28 @@
-{% extends 'layout.html'%}
-
-{% block main %}
+{% extends 'layout.html'%} {% block main %}
 
 <ol class="breadcrumb">
-    <li><a href="/admin">首页</a></li>
+    <li><a href="/admin/good">首页</a></li>
     <li><span>产品添加</span></li>
 </ol>
-
 <form role="form" method="post">
-        
-            <div class="form-group">
-                <label for="goodname">产品名称</label>
-                <input id='goodname' name="goodname" class="form-control" placeholder="例：H型管">
-            </div>
-            <div class="form-group">
-                <label for="goodprice">参考报价</label>
-                <input id='goodprice' name="goodprice" class="form-control" placeholder="例：100元/m">
-            </div>
-            <div class="form-group">
-                <label for="gooddes">产品描述</label>
-                <textarea rows="5" id='gooddes' name="gooddes" class="form-control" placeholder="例：品质优良，物美价廉"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="content">产品图片:</label>
-                <input id="img" style="margin-top:15px" accept="image/png,image/jpg" type="file">
-            </div>
-            <img style="width:200px;height:200px" id="showImg" alt=""><br/>
-            <input type="text" id='goodimg' name="goodimg">
-            <button id='submit' type="submit" style="margin-top:30px" class="btn btn-default">发布产品</button>
-        </form>
+    <div class="form-group">
+        <label for="goodname">产品名称</label>
+        <input id='goodname' name="goodname" class="form-control" placeholder="例：H型管">
+    </div>
+    <div class="form-group">
+        <label for="goodprice">参考报价</label>
+        <input id='goodprice' name="goodprice" class="form-control" placeholder="例：100元/m">
+    </div>
+    <div class="form-group">
+        <label for="gooddes">产品描述</label>
+        <textarea rows="5" id='gooddes' name="gooddes" class="form-control" placeholder="例：品质优良，物美价廉"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="content">产品图片:</label>
+        <input id="img" style="margin-top:15px" accept="image/png;image/jpg" type="file">
+    </div>
+    <img style="width:200px;height:200px" id="showImg" alt=""><br/>
+    <input type="text" id='goodimg' name="goodimg" style="opacity:0;width:0">
+    <button id='submit' type="submit" style="margin-top:30px" class="btn btn-default">发布产品</button>
+</form>
 {% endblock %}

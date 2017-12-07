@@ -15,34 +15,17 @@ $(function () {
     var $goodImg = $('#img');
     var $showImg = $('#showImg');
     var $imgSrc = $('#goodimg')
-    $goodImg.on('change',function(){
+    /* 把上传的图片展示到页面上，并且传入一个input用于上传到数据库 */
+    $goodImg.on('change', function () {
         var file = this.files[0];
         var reader = new FileReader();
         reader.readAsDataURL(file); // 读出 base64
-        reader.onloadend = function () {      
+        reader.onloadend = function () {
             imgBase64 = reader.result;
             $showImg.attr('src', imgBase64);
             $imgSrc.val(imgBase64);
             console.log($imgSrc.val());
         };
-    })
-
-    $('#submit').on('click', function(){
-        console.log(111);
-        // $.ajax({
-        //     type: 'post',
-        //     url:'add',
-        //     data:{
-        //         goodname: $('#title').val(),
-        //         goodprice: $('#price').val(),
-        //         gooddes: $('#description').val(),
-        //         goodimg: imgBase64,
-        //     },
-        //     dataType:'json',
-        //     success: function(){
-        //         console.log('上传成功')
-        //     }
-        // })
     })
 
     // //点击注册
@@ -125,5 +108,5 @@ $(function () {
     //         }
     //     )
     // })
-    
-    });
+
+});

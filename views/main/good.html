@@ -1,26 +1,35 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>王清野的博客</title>
-    <!-- Bootstrap -->
-	<link rel="stylesheet" href="/public/css/bootstrap.min.css" type="text/css">
-	<link rel="stylesheet" href="/public/css/bootstrap-theme.min.css" type="text/css">
-    <link href="/public/css/normalize.css" rel="stylesheet">
-    <link href="/public/css/index.css" rel="stylesheet">
-	<!-- <script src="/public/js/bootstrap.min.js"></script> -->
-	<script src="/public/js/jquery.min.js"></script>
-    <script src="/public/js/index.js"></script>
-  </head>
-  <body>
-	<img style="width:100%" src="/public/image/banner.png" alt="">
-	<ul class="nav nav-tabs navs">
-		<li role="presentation"><a href="/">公司简介</a></li>
-		<li role="presentation"  class="active"><a href="/goods">产品展示</a></li>
-		<li role="presentation"><a href="/clients">客户案例</a></li>
-    </ul>
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <title>王清野的博客</title>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="/public/css/bootstrap.min.css" type="text/css">
+  <link rel="stylesheet" href="/public/css/bootstrap-theme.min.css" type="text/css">
+  <link href="/public/css/normalize.css" rel="stylesheet">
+  <link href="/public/css/index.css" rel="stylesheet">
+  <!-- <script src="/public/js/bootstrap.min.js"></script> -->
+  <script src="/public/js/jquery.min.js"></script>
+  <script src="/public/js/index.js"></script>
+</head>
+
+<body>
+  <img style="width:100%" src="/public/image/banner.png" alt="">
+  <ul class="nav nav-tabs navs">
+    <li role="presentation"><a href="/">公司简介</a></li>
+    <li role="presentation" class="active"><a href="/goods">产品展示</a></li>
+    <li role="presentation"><a href="/clients">客户案例</a></li>
+  </ul>
+  <div class="jumbotron">
+    <p>{{good.goodname}}</p>
+    <p>{{good.goodprice}}</p>
+    <img src="{{ good.goodimg || '/public/image/emptyimg.png' }}" alt="">
+    <p>{{good.gooddes}}</p>
+  </div>
+</body>
+
 </html>

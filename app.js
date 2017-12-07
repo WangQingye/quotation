@@ -26,11 +26,10 @@ app.set('views', './views');
 
 //注册所使用的模版引擎，第一个参数必须是view engine,第二个是和engine一直的
 app.set('view engine', 'html');
-
 //静态资源目录
 app.use('/public', express.static(__dirname + '/public'));
 //解析请求数据
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 //设置cookie
 app.use(function (req, res, next) {
     req.cookies = new Cookies(req, res);

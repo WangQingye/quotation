@@ -27,7 +27,6 @@
             <caption>此表格为最新参考价格，具体价格以实际沟通确认为主。（点击可查看详情）</caption>
             <thead>
             <tr>
-                <th>序号</th>
                 <th>图片展示</th>
                 <th>产品名称</th>
                 <th>参考报价</th>
@@ -35,20 +34,14 @@
             </tr>
             </thead>
             <tbody>
+            {% for good in goods %}
             <tr>
-                <td><p>1</p></td>
-                <td><img src="/public/image/goods.jpg" alt=""></td>
-                <td><p>无缝管</p></td>
-                <td><p>100元/m</p></td>
-                <td><a href="">查看详情</a></td>
+                <td><img src="{{ good.goodimg || '/public/image/emptyimg.png' }}" alt=""></td>
+                <td><p>{{good.goodname}}</p></td>
+                <td><p>{{good.goodprice}}</p></td>
+                <td><a href="/goods/good?id={{good._id.toString()}}">查看详情</a></td>
             </tr>
-            <tr>
-                <td><p>2</p></td>
-                <td><img src="/public/image/goods.jpg" alt=""></td>
-                <td><p>无缝管</p></td>
-                <td><p>100元/m</p></td>
-                <td><a href="">查看详情</a></td>
-            </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>

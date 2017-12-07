@@ -8,10 +8,9 @@ var axios = require('axios');
 //引入用户数据模型
 var User = require('../models/user');
 //引入分类模型
-var Category = require('../models/category');
+var Good = require('../models/good');
 //引入内容模型
 var Content = require('../models/content');
-
 // /admin/user
 // router.use(function (req, res, next) {
 //     if(!req.userInfo)
@@ -90,7 +89,7 @@ router.get('/good', function (req, res) {
     var skip = 0; //根据页数计算需要跳过的条数，动态计算
     var totalPage = 0;
 
-    Category.count()
+    Good.count()
         .then(function (count) {
             totalPage = Math.ceil(count / limit);
             //设置page的范围
@@ -99,11 +98,11 @@ router.get('/good', function (req, res) {
 
             skip = (page - 1) * limit;
 
-            Category.find().sort({_id:-1}).skip(skip).limit(limit)
-                .then(function (categories) {
+            Good.find().sort({_id:-1}).skip(skip).limit(limit)
+                .then(function (goods) {
                     res.render('admin/category', {
                         userInfo:req.userInfo,
-                        categories:categories,
+                        goods:goods,
                         page:page,
                         totalPage:totalPage,
                         type:'category'
@@ -119,30 +118,37 @@ router.get('/good/add', function (req, res) {
 });
 //保存分类
 router.post('/good/add', function (req, res) {
-    var name = req.body.name;
+    var goodname = req.body.goodname;
+    var goodprice = req.body.goodprice;
+    var gooddes = req.body.gooddes;
+    var goodimg = req.body.goodimg;
     console.log(req.body);
     //简单判断
-    if(!name)
+    if(!goodname)
     {
         res.render('admin/error', {
             userInfo: req.userInfo,
             message:"产品的名称不能为空"
         });
         return;
-    }else if(name.length > 5)
+    }else if(goodname.length > 5)
     {
         res.render('admin/error', {
             userInfo: req.userInfo,
             message:"名称长度超过限制"
         });
         return;
+    }else if(!goodprice){
+        res.render('admin/error',{
+            message: "商品是一定要有价格的哦^_^"
+        })
     }
 
-    Category.findOne({
-        name:name
-    }).then(function (category) {
+    Good.findOne({
+        goodname:goodname
+    }).then(function (good) {
        //数据库中存在该分类
-       if(category)
+       if(good)
        {
            res.render('admin/error', {
                userInfo: req.userInfo,
@@ -150,12 +156,15 @@ router.post('/good/add', function (req, res) {
            });
            return Promise.reject();
        }else {
-           return new Category({
-               name:name
+           return new Good({
+               goodname: goodname,
+               goodprice: goodprice,
+               gooddes: gooddes,
+               goodimg: goodimg
            }).save();
        }
-    }).then(function (newCategory) {
-        console.log(newCategory);
+    }).then(function (newgood) {
+        console.log(newgood);
         res.render('admin/success', {
             userInfo: req.userInfo,
             message:"分类保存成功",
@@ -165,16 +174,16 @@ router.post('/good/add', function (req, res) {
 
 });
 //分类修改
-router.get('/category/edit', function (req, res) {
+router.get('/good/edit', function (req, res) {
 
     //获取要修改的分类信息，并且以表单的信息展示
     var id = req.query.id || '';
 
-    Category.findOne({
+    Good.findOne({
         _id:id
-    }).then(function (category) {
-        console.log(category);
-        if(!category)
+    }).then(function (good) {
+        console.log(good);
+        if(!good)
         {
             res.render('admin/error', {
                 userInfo:req.userInfo,
@@ -182,86 +191,75 @@ router.get('/category/edit', function (req, res) {
             })
         }else
         {
-            res.render('admin/category_edit', {
+            res.render('admin/good_edit', {
                 userInfo:req.userInfo,
-                category:category
+                good:good
             })
         }
     })
 });
-router.post('/category/edit', function (req, res) {
+router.post('/good/edit', function (req, res) {
 
     //获取要修改的分类信息，并且以表单的信息展示
     var id = req.query.id || '';
-    var name = req.body.name;
-    Category.findOne({
+    var goodname = req.body.goodname;
+    var goodprice = req.body.goodprice;
+    var gooddes = req.body.gooddes;
+    var goodimg = req.body.goodimg;
+    Good.findOne({
         _id:id
-    }).then(function (category) {
-        console.log(category);
-        if(!category)
+    }).then(function (good) {
+        console.log(good);
+        if(!good)
         {
             res.render('admin/error', {
-                userInfo:req.userInfo,
                 message:'分类信息不存在'
             });
             return Promise.reject();
         }else
         {
-            //做一些判断
-            if(name == category.name)
-            {
-                res.render('admin/success', {
-                    userInfo:req.userInfo,
-                    message:'修改成功',
-                    url:'/admin/category'
-                });
-                return Promise.reject();
-            }else
-            {
-                return Category.findOne({
-                        _id:{$ne: id},
-                        name:name
-                });
-            }
+            // 找到不等现在这个ID，但是名字相同的（说明输入了与数据库中有相同名称的产品）
+            return Good.findOne({
+                    _id:{$ne: id},
+                    goodname:goodname
+            });
         }
-    }).then(function (sameCategory) {
-        if(sameCategory)
+    }).then(function (sameGood) {
+        if(sameGood)
         {
-            console.log('same', sameCategory);
+            console.log('same', sameGood);
             res.render('admin/error', {
-                userInfo:req.userInfo,
-                message:'数据库中已经存在同名分类'
+                message:'数据库中已经存在这种商品了哦'
             });
             return Promise.reject();
         }else
         {
-            return Category.update({
+            return Good.update({
                 _id:id
             },{
-                name:name
+                goodname: goodname,
+                goodprice: goodprice,
+                gooddes: gooddes,
+                goodimg: goodimg
             });
         }
     }).then(function () {
        res.render('admin/success', {
-           useInfo:req.userInfo,
            message:'修改成功',
-           url: '/admin/category'
+           url: '/admin/good'
        });
     });
 });
 //分类删除
-router.get('/category/delete', function (req, res) {
-
+router.get('/good/delete', function (req, res) {
     //获取要删除的ID
     var id = req.query.id;
-
-    Category.remove({
+    Good.remove({
         _id:id
     }).then(function () {
         res.render('admin/success', {
-            userInfo:req.userInfo,
             message:'删除成功',
-            url:'/admin/category'
+            url:'/admin/good'
         });
     })
 });

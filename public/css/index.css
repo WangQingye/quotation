@@ -17,7 +17,12 @@ td a{
     padding-top: 4rem;
     height: 10rem;
 }
+.goodshow a{
+    display: inline-block;
+    padding-top: 4rem;
+}
 td img{
+    margin-top: 0.5rem;
     width: 10rem;
     height: 10rem;
 }
