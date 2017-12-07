@@ -3,6 +3,6 @@
  */
 
 var mongoose = require('mongoose');
-var categoriesSchema = require('../schemas/categroies');
+var goodsSchema = require('../schemas/good');
 
-module.exports = mongoose.model('Category', categoriesSchema);
+module.exports = mongoose.model('Good', goodsSchema);

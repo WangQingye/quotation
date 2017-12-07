@@ -34,7 +34,6 @@ router.get('/',function (req, res) {
     .then(function(response)
     {
         weather = response.data.weather;
-        console.log(weather)
         res.render('admin/index', {
             weather: weather,
             userInfo:req.userInfo
@@ -42,8 +41,6 @@ router.get('/',function (req, res) {
     })
     .catch(function(err)
     {
-        console.log(2)
-        console.log(err)
     })
 });
 
@@ -84,9 +81,9 @@ router.get('/user', function (req, res) {
 });
 
 /**
- * 分类管理
+ * 产品管理
  * */
-router.get('/category', function (req, res) {
+router.get('/good', function (req, res) {
 
     var page =  Number(req.query.page || 1); //请求页数
     var limit = 10; //每页的限制
@@ -115,21 +112,21 @@ router.get('/category', function (req, res) {
         });
 });
 //获取添加页面
-router.get('/category/add', function (req, res) {
+router.get('/good/add', function (req, res) {
     res.render('admin/category_add', {
         userInfo: req.userInfo
     })
 });
 //保存分类
-router.post('/category/add', function (req, res) {
+router.post('/good/add', function (req, res) {
     var name = req.body.name;
-
+    console.log(req.body);
     //简单判断
     if(!name)
     {
         res.render('admin/error', {
             userInfo: req.userInfo,
-            message:"输入的名称不能为空"
+            message:"产品的名称不能为空"
         });
         return;
     }else if(name.length > 5)
@@ -149,7 +146,7 @@ router.post('/category/add', function (req, res) {
        {
            res.render('admin/error', {
                userInfo: req.userInfo,
-               message:"已经有这个分类了"
+               message:"已经有这个产品了"
            });
            return Promise.reject();
        }else {
@@ -162,7 +159,7 @@ router.post('/category/add', function (req, res) {
         res.render('admin/success', {
             userInfo: req.userInfo,
             message:"分类保存成功",
-            url: '/admin/category'
+            url: '/admin/good'
         });
     });
 

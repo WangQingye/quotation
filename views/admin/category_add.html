@@ -10,22 +10,23 @@
 <form role="form" method="post">
         
             <div class="form-group">
-                <label for="category">产品名称</label>
-                <input id='title' name="title" class="form-control" placeholder="例：H型管">                
+                <label for="goodname">产品名称</label>
+                <input id='goodname' name="goodname" class="form-control" placeholder="例：H型管">
             </div>
             <div class="form-group">
-                <label for="title">参考报价</label>
-                <input id='price' name="price" class="form-control" placeholder="例：100元/m">
+                <label for="goodprice">参考报价</label>
+                <input id='goodprice' name="goodprice" class="form-control" placeholder="例：100元/m">
             </div>
             <div class="form-group">
-                <label for="description">产品描述</label>
-                <textarea rows="5" id='description' name="description" class="form-control" placeholder="例：品质优良，物美价廉"></textarea>
+                <label for="gooddes">产品描述</label>
+                <textarea rows="5" id='gooddes' name="gooddes" class="form-control" placeholder="例：品质优良，物美价廉"></textarea>
             </div>
             <div class="form-group">
                 <label for="content">产品图片:</label>
-                <input style="margin-top:15px" accept="image/png,image/jpg" type="file" id='img' name="img">
+                <input id="img" style="margin-top:15px" accept="image/png,image/jpg" type="file">
             </div>
             <img style="width:200px;height:200px" id="showImg" alt=""><br/>
-            <button style="margin-top:30px" type="submit" class="btn btn-default">发布产品</button>
+            <input type="text" id='goodimg' name="goodimg">
+            <button id='submit' type="submit" style="margin-top:30px" class="btn btn-default">发布产品</button>
         </form>
 {% endblock %}
